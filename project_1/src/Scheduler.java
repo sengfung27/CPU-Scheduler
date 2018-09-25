@@ -6,9 +6,8 @@ public class Scheduler
 {
     public static void main(String[] args)
     {
-        PCB pcb = new PCB(3);
-        //pcb.setProcess(2);
-        System.out.println(pcb.getProcess());
-
+        PCB pcb = new PCB("ls", 3003, "ready", true, false, 300, 200);
+        System.out.println(pcb.getProgramName());
+        System.out.println(pcb.getState());
     }
 }
