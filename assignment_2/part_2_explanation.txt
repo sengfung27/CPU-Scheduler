@@ -1,3 +1,7 @@
+Seng Fung Mun 
+Assignment 2: Part 2 explanation
+
+
 The parent process first executed. The parent fork one child process.
 Now we have 2 processes running, parent process and child process.
 Parent process then re-assign b = a + b - 5. Then print the results of a, b and pid in the terminal.
