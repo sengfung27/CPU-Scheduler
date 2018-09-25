@@ -17,7 +17,7 @@ int main(int argc, char** argv)
         int second_child = fork();
         if (second_child == 0)
         {
-            printf("I am child second, my pid is: %d\n", getpid());
+            printf("I am child two, my pid is: %d\n", getpid());
         }
         else
         {
