@@ -1,0 +1,16 @@
+The parent process first executed. The parent fork one child process.
+Now we have 2 processes running, parent process and child process.
+Parent process then re-assign b = a + b - 5. Then print the results of a, b and pid in the terminal.
+The parent results show a = 10, b = 30.
+After that, parent process exit the program since it does not call wait() for any of its' child return.
+
+The child process then re-assign a = a + b. Since the child process gets it's own copy of the program, 
+the parent process will not affect the child process when we execute. Therefore, the child process results
+show a = 35, b =25.
+
+Now this child process then fork() another child process (we called it child-child process).
+the child process then re-assign b = b + 20. and the results show a = 35, b = 45.
+After that, child process exit the program since it does not call wait() to wait for it's child to return.
+
+The child-child process re-assign a = (a * b) + 30. Same here, it will not affect by any other processes.
+the child-child process results show a = 905, b = 25.
