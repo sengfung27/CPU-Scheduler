@@ -36,12 +36,12 @@ public class Scheduler
         {
             System.out.println(e);
             processes.removeAll(processes);
-            //br.close();
+            
         }
-        // finally
-        // {
-        //     br.close();
-        // }
+        finally
+        {
+            br.close();
+        }
         for(PCB i : processes)
         {
             System.out.println(i.program_name);
