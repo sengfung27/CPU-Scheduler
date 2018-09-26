@@ -1,21 +1,26 @@
 package pcb_package;
 
 import pcb_package.PCB;
-
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.IOException;
+import java.io.FileInputStream;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
+import java.net.URL;
 public class Scheduler
 {
     public static void main(String[] args)
     {
-        PCB pcb = new PCB("ls", 3003, "ready", 1, 0, 300, 200);
-        System.out.println(pcb.getProgramName());
-        System.out.println(pcb.getState());
-        File file = new File("processes.txt");
 
-        try (BufferedReader br = new BufferedReader(new FileReader(file)))
+        ArrayList<PCB> processes = new ArrayList<PCB>();
+
+        try (BufferedReader br = new BufferedReader(new FileReader("processes.txt")))
         {
 
-            // List to collect PCB objects
-            List<PCB> processes = new ArrayList<PCB>();
 
             // Read file line by line
             String line = "";
@@ -26,14 +31,20 @@ public class Scheduler
 
                 processes.add(process);
             }
-
-            
-
         }
         catch (IOException e)
         {
+            System.out.println(e);
             processes.removeAll(processes);
-            br.close();
+            //br.close();
+        }
+        // finally
+        // {
+        //     br.close();
+        // }
+        for(PCB i : processes)
+        {
+            System.out.println(i.program_name);
         }
     }
 }
