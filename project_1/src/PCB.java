@@ -1,3 +1,4 @@
+package pcb_package;
 public class PCB 
 {
     public String program_name;
