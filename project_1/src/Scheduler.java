@@ -1,6 +1,3 @@
-
-
-//import pcb_package.PCB;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -34,7 +31,7 @@ public class Scheduler
         {
             System.out.println(e);
             processes.removeAll(processes);
-            //br.close();
+            
         }
 
         for(PCB i : processes)
