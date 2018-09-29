@@ -1,4 +1,4 @@
 out/
 *.class
 init
-Scheduler.jar
+*.jar

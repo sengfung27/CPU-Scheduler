@@ -1,4 +1,4 @@
-package pcb_package;
+
 public class PCB 
 {
     public String program_name;
@@ -19,5 +19,6 @@ public class PCB
         est_run_time = Integer.parseInt(split[5]);
         est_remain_time = Integer.parseInt(split[6]);
     }
- 
+    
+
 }

@@ -1,4 +1,3 @@
-import pcb_package.PCB;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -7,14 +6,16 @@ import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Queue;
+import java.util.LinkedList;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.net.ServerSocket;
+import java.lang.ClassNotFoundException;
 
 public class Scheduler
 {
-    public static void main(String[] args) throws UnknownHostException,
+    public static void main(String[] args) throws 
             IOException, ClassNotFoundException
     {
 
@@ -70,18 +71,4 @@ public class Scheduler
         socket.close();
     }
 
-    public void printScheduler(PCB process)
-    {
-        System.out.println();
-        System.out.println();
-
-        System.out.println();
-
-        System.out.println();
-
-        System.out.println();
-
-        System.out.println();
-
-    }
 }
