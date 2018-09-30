@@ -1,6 +1,7 @@
-
-public class PCB 
+import java.io.Serializable;
+public class PCB implements Serializable
 {
+    public static final long serialVersionUID = 42L;
     public String program_name;
     public int PID;
     public String state;

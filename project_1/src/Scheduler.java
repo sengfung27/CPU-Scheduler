@@ -12,11 +12,12 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.net.ServerSocket;
 import java.lang.ClassNotFoundException;
-
+import java.net.UnknownHostException;
+import java.util.concurrent.TimeUnit;
 public class Scheduler
 {
     public static void main(String[] args) throws 
-            IOException, ClassNotFoundException
+            IOException, ClassNotFoundException, UnknownHostException
     {
 
         ArrayList<PCB> processes = new ArrayList<PCB>();
@@ -51,23 +52,33 @@ public class Scheduler
         System.out.println("welcome client");
         Socket socket = new Socket("127.0.0.1", 6666);
         System.out.println("Client connected");
-        while (scheduler.peek() != null)
+        ObjectOutputStream oos = null;
+        ObjectInputStream ois = null;
+        while(scheduler.peek() != null){
+        oos  = new ObjectOutputStream(socket.getOutputStream());
+        // oos.writeObject(scheduler.remove());
+        if (scheduler.peek() != null)
         {
-            ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
-            oos.writeObject(scheduler.remove());
-            ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
-
-            PCB return_process = (PCB) ois.readObject();
-
-            if (return_process.est_remain_time == 0)
-            {
-                System.out.println("Scheduler: Process " + return_process.PID + " " + return_process.program_name + " Completed.");
-            }
-            else
-            {
-                scheduler.add(return_process);
-            }
+            PCB temp = scheduler.remove();
+            oos.writeObject(temp);
+            oos.flush();
         }
+        //TimeUnit.SECONDS.sleep(1);
+        ois = new ObjectInputStream(socket.getInputStream());
+        // oos.writeObject(new PCB("ls,1000,ready,1,0,360,360"));
+        PCB return_process = (PCB) ois.readObject();
+        System.out.println(Integer.toString(return_process.est_remain_time));
+        if (return_process.est_remain_time == 0)
+        {
+            System.out.println("Scheduler: Process " + return_process.PID + " " + return_process.program_name + " Completed.");
+        }
+        else
+        {
+            scheduler.add(return_process);
+        }
+    }
+        oos.close();
+        ois.close();
         socket.close();
     }
 
