@@ -43,6 +43,7 @@ int main(int argc, char *argv[])
 
     // Copy content
     char buffer[100];
+    int count;
     while ((count = read(fd[0], buffer, sizeof(buffer))) > 0) {
         // Replace '1' with 'A'
         for (int i = 0; i < count; i++) {
