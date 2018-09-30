@@ -41,23 +41,60 @@ int main(int argc, char *argv[])
         return -1;
     }
 
-    // Copy content
-    char buffer[100];
-    while ((count = read(fd[0], buffer, sizeof(buffer))) > 0) {
-        // Replace '1' with 'A'
-        for (int i = 0; i < count; i++) {
-            if (buffer[i] == '1') {
-                buffer[i] = 'A';
+    // keep track of characters.
+    size_t count_chars = 0; 
+
+    //determine the read file size
+    size_t read_size = lseek(fd[0], 0L, SEEK_END); 
+    lseek(fd[0], 0L, SEEK_SET);
+
+    // 103, because 100 characters and XYZ
+    char buffer[103]; 
+    
+    while (read(fd[0], buffer, 100) != 0)
+    { 
+        //read and write 100 characters with XYZ
+        if(read_size - count_chars >= 100) 
+        {   
+            // replace 1 with A
+            for (int i = 0; i < 100; i++)
+            {
+                if(buffer[i] == '1')
+                    buffer[i] = 'A';
+        
+            }
+            // write XYZ 
+            buffer[100] = 'X';
+            
+            buffer[101] = 'Y';
+        
+            buffer[102] = 'Z';
+            
+            if ((write(fd[1], buffer, 103)) < 0)
+            {
+                printf("\n Error in write(): [%s]", strerror(errno));
+                return -1;
+            }
+            // keep track of characters has been read
+            count_chars += 100;
+        }
+
+        // write the remaining characters without XYZ if less than 100 characters
+        else 
+        {
+            size_t remaining_chars = read_size - count_chars;
+            for (int i = 0; i < remaining_chars; i++)
+            {
+                if(buffer[i] == '1')
+                    buffer[i] = 'A';
+            }
+            if ((write(fd[1], buffer, remaining_chars)) < 0)
+            {
+                printf("\n Error in write(): [%s]", strerror(errno));
+                return -1;
             }
         }
-        
-        write(fd[1], buffer, count);
-
-        // Write "XYZ"
-        if (count == 100)
-            write(fd[1], "XYZ", 3);
     }
-	
     // close
     int length = 0;
     while (2 > length){
