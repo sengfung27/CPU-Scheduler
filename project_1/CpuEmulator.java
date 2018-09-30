@@ -32,6 +32,7 @@ public class CpuEmulator
         {
             ss = new ServerSocket(6666);
             System.out.println("Connection Established.");
+            
             while(true)
             {   
                 socket = ss.accept();
@@ -50,8 +51,8 @@ public class CpuEmulator
                 
                 oos.writeObject(process_pcb);
                 oos.flush();  
+                socket.close();
             }
-            
         }
         
         catch (IOException e) {
@@ -65,6 +66,8 @@ public class CpuEmulator
         {
             try
             {
+                if (socket != null)
+                    socket.close();
                 if(ss != null)
                     ss.close();
             }
