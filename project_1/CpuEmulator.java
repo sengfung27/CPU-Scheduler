@@ -32,13 +32,13 @@ public class CpuEmulator
         {
             ss = new ServerSocket(6666);
             System.out.println("Connection Established.");
-            
             while(true)
             {   
                 socket = ss.accept();
                 oos = new ObjectOutputStream(socket.getOutputStream());
                 ois = new ObjectInputStream(socket.getInputStream());
                 PCB process_pcb = (PCB)ois.readObject();
+                
                 System.out.println("CPU: Exec "
                     + process_pcb.program_name + ", "
                     + Integer.toString(process_pcb.PID) + ", "
@@ -50,8 +50,8 @@ public class CpuEmulator
                 minusCycle(process_pcb);
                 
                 oos.writeObject(process_pcb);
-                oos.flush();  
-                socket.close();
+                oos.flush();
+                socket.close();  
             }
         }
         

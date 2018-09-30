@@ -13,20 +13,35 @@ import java.net.Socket;
 import java.net.ServerSocket;
 import java.lang.ClassNotFoundException;
 import java.net.UnknownHostException;
+import java.util.Comparator;
+import java.util.PriorityQueue;
 
 public class Scheduler
 {
+    public static Socket socket = null;
     public static void main(String[] args) 
     {
+        Queue<PCB> scheduler = null;
 
-        Queue<PCB> scheduler = new LinkedList<>();
+        if(args.length > 0)
+        {
+            Comparator<PCB> comparator = new PriorityComparator();
+            scheduler = new PriorityQueue<PCB>(20, comparator);
+        }
+        else
+        {        
+            scheduler = new LinkedList<>();
+        }
+
         try (BufferedReader br = new BufferedReader(new FileReader("processes.txt")))
         {
 
             // Read file line by line
             String line = "";
             while ((line = br.readLine()) != null)
+            {
                 scheduler.add(new PCB(line));
+            }
             
         }
         catch (IOException e)
@@ -44,12 +59,12 @@ public class Scheduler
             else
                 scheduler.add(return_process);
         }
+
     }
 
         
     public static PCB connect(PCB pcb)
     {
-        Socket socket = null;
         ObjectOutputStream oos = null;
         ObjectInputStream ois = null;
         PCB return_process = null;
