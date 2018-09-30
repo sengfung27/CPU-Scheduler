@@ -9,7 +9,7 @@ public class PCB implements Serializable
     public int interruptable;
     public int est_run_time;
     public int est_remain_time;
-    
+
     public PCB(String line) {
         String[] split = line.split(",");
         program_name = split[0];
@@ -20,6 +20,4 @@ public class PCB implements Serializable
         est_run_time = Integer.parseInt(split[5]);
         est_remain_time = Integer.parseInt(split[6]);
     }
-    
-
 }
