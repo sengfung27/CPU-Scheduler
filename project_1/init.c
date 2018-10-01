@@ -3,7 +3,7 @@
 #include <wait.h>
 #include <unistd.h>
 
-int main()
+int main(int argc, char** argv)
 {
     int cpu_emulator_fork, scheduler_fork, status, pid;
 
@@ -19,7 +19,14 @@ int main()
     if (scheduler_fork == 0)
     {
         printf("scheduler pid: %d\n", getpid());
-        execl("/usr/bin/java","/usr/bin/java", "-cp", "Scheduler.jar", "Scheduler", NULL);
+        if(argc > 1)
+        {
+            execl("/usr/bin/java","/usr/bin/java", "-cp", "Scheduler.jar", "Scheduler", "priority", NULL);
+        }
+        else
+        {
+            execl("/usr/bin/java","/usr/bin/java", "-cp", "Scheduler.jar", "Scheduler", NULL);
+        }
         perror("scheduler failed.");
         exit(EXIT_FAILURE);
     }

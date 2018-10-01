@@ -5,15 +5,13 @@ public class PriorityComparator implements Comparator<PCB>
     @Override
     public int compare(PCB x, PCB y)
     {
-
-        if (x.priority < y.priority)
+        if(x.priority == y.priority)
         {
-            return -1;
+            return x.PID < y.PID ? -1 : 1; 
         }
-        if (x.priority > y.priority)
+        else
         {
-            return 1;
+            return x.priority < y.priority ? -1 : 1;
         }
-        return 0;
     }
 }
