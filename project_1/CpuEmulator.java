@@ -3,7 +3,6 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.net.ServerSocket;
 import java.io.IOException;
-import java.lang.ClassNotFoundException;
 
 public class CpuEmulator
 {
@@ -38,7 +37,7 @@ public class CpuEmulator
                 oos = new ObjectOutputStream(socket.getOutputStream());
                 ois = new ObjectInputStream(socket.getInputStream());
                 PCB process_pcb = (PCB)ois.readObject();
-                
+
                 System.out.println("CPU: Exec "
                     + process_pcb.program_name + ", "
                     + Integer.toString(process_pcb.PID) + ", "
