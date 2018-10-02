@@ -3,12 +3,12 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.net.ServerSocket;
 import java.io.IOException;
+//import java.io.SocketTimeoutException;
 
 public class CpuEmulator
 {
     public static final int port = 6666;
-    //public static final ServerSocket ss = null;
-
+    public static ServerSocket ss = null;
     public static void minusCycle(PCB process) {
         if(process.est_remain_time > 200)
         {
@@ -25,19 +25,20 @@ public class CpuEmulator
         ObjectOutputStream oos = null;
         ObjectInputStream ois = null;
         Socket socket = null;
-        ServerSocket ss = null;
+
 
         try 
         {
             ss = new ServerSocket(6666);
+            ss.setSoTimeout(4000); 
             System.out.println("Connection Established.");
+            
             while(true)
             {   
                 socket = ss.accept();
                 oos = new ObjectOutputStream(socket.getOutputStream());
                 ois = new ObjectInputStream(socket.getInputStream());
                 PCB process_pcb = (PCB)ois.readObject();
-
                 System.out.println("CPU: Exec "
                     + process_pcb.program_name + ", "
                     + Integer.toString(process_pcb.PID) + ", "
@@ -55,11 +56,9 @@ public class CpuEmulator
         }
         
         catch (IOException e) {
-            e.printStackTrace();
-            System.exit(-1);
+            System.exit(1);
         } catch (Exception e) {
-            e.printStackTrace();
-            System.exit(-1);
+            System.exit(1);
         }
         finally
         {
