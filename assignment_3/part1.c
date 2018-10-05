@@ -3,7 +3,6 @@
 #include <unistd.h>
 #include <wait.h>
 
-
 int main(int argc, char **argv)
 {
     int child = fork();

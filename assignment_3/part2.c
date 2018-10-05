@@ -3,10 +3,9 @@
 #include <unistd.h>
 #include <sys/wait.h>
 
-
 int main()
 {
-    char* argc[] = {"ls", "-la", NULL};
+    char *argc[] = {"ls", "-la", NULL};
     int pid, status;
     int child = fork();
     if (child == 0)

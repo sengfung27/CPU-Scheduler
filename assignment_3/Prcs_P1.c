@@ -10,30 +10,30 @@
 
 int main(int argc, char **argv)
 {
-	int fd1 = open("destination1.txt", O_CREAT|O_TRUNC, S_IRUSR | S_IWUSR | S_IXUSR);
-    if(-1 == fd1)
-	{
-		printf("\n open() failed with error: [%s]\n",strerror(errno));
-		return -1;
-	} 
-    int fd2 = open("destination2.txt", O_CREAT|O_TRUNC, S_IRUSR | S_IWUSR | S_IXUSR);
-    if(-1 == fd2)
-	{
-		printf("\n open() failed with error: [%s]\n",strerror(errno));
-		return -1;
-	} 
+    int fd1 = open("destination1.txt", O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR | S_IXUSR);
+    if (-1 == fd1)
+    {
+        printf("\n open() failed with error: [%s]\n", strerror(errno));
+        return -1;
+    }
+    int fd2 = open("destination2.txt", O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR | S_IXUSR);
+    if (-1 == fd2)
+    {
+        printf("\n open() failed with error: [%s]\n", strerror(errno));
+        return -1;
+    }
 
     if (close(fd1) != 0)
     {
-        printf("\n close() failed with error: [%s]\n",strerror(errno));
+        printf("\n close() failed with error: [%s]\n", strerror(errno));
         return -1;
     }
     if (close(fd2) != 0)
     {
-        printf("\n close() failed with error: [%s]\n",strerror(errno));
+        printf("\n close() failed with error: [%s]\n", strerror(errno));
         return -1;
     }
-    
+
     printf("Successful created destination1.txt and destination2.txt\n");
 
     return 0;
