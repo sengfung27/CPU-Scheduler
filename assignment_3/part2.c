@@ -4,7 +4,7 @@
 #include <sys/wait.h>
 
 
-int main(int argc, char **argv)
+int main()
 {
     char* argc[] = {"ls", "-la", NULL};
     int pid, status;
