@@ -56,7 +56,7 @@ int main(int argc, char *argv[])
             if ((count_50 = read(fd[0], buffer2, sizeof(buffer2))) > 0)
             {
                 // Replace '2' with 'B' 
-                for (int i = 0; j < count_50; i++)
+                for (int i = 0; i < count_50; i++)
                 {
                     if (buffer2[i] == '2')
                     {
