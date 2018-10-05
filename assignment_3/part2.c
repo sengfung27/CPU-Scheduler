@@ -2,16 +2,12 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <sys/wait.h>
-#include <errno.h>
-#include <sys/stat.h>
-#include <sys/types.h>
-#include <fcntl.h>
-#include <string.h>
+
 
 int main(int argc, char **argv)
 {
     char* argc[] = {"ls", "-la", NULL};
-    int pid;
+    int pid, status;
     int child = fork();
     if (child == 0)
     {

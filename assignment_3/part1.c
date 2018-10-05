@@ -1,21 +1,18 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
-#include <sys/wait.h>
-#include <errno.h>
-#include <sys/stat.h>
-#include <sys/types.h>
-#include <fcntl.h>
-#include <string.h>
+#include <wait.h>
+
 
 int main(int argc, char **argv)
 {
     int child = fork();
     int pid;
+    int status;
     if (child == 0)
     {
         printf("I am child, my pid is %d\n", getpid());
-        execl("/bin/date", "/bin/date", NUll);
+        execl("/bin/date", "/bin/date", NULL);
     }
     else
     {
