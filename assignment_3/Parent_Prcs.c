@@ -3,12 +3,17 @@
 #include <unistd.h>
 #include <sys/wait.h>
 #include <errno.h>
+#include <sys/stat.h>
+#include <sys/types.h>
+#include <fcntl.h>
+#include <string.h>
 
 int main(int argc, char *argv[])
 {
     char *[] argc_1 = {"./prcs_p1", NULL};
     char *[] argc_2 = {"./prcs_p2", "destination1.txt", "destination2.txt", NULL};
     errno = 0;
+    int status, pid;
     int child_1 = fork();
     if (child_1 == 0)
     {
