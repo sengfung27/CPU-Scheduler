@@ -22,8 +22,8 @@ int main(int argc, char *argv[])
         return -1;
     }
     // open second file with write only, create one if doesn't exist
-    fd[1] = open(argv[2], O_WRONLY | O_CREAT, S_IRUSR | S_IWUSR);
-    fd[2] = open(argv[3], O_WRONLY | O_CREAT, S_IRUSR | S_IWUSR);
+    fd[1] = open(argv[2], O_WRONLY);
+    fd[2] = open(argv[3], O_WRONLY);
     if (0 > fd[1] && 0 > fd[2])
     {
         if (close(fd[0]) != 0 && close(fd[1]) != 0)
