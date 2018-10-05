@@ -30,7 +30,7 @@ public class CpuEmulator
         try 
         {
             ss = new ServerSocket(6666);
-            ss.setSoTimeout(4000); 
+            ss.setSoTimeout(1000); 
             System.out.println("Connection Established.");
             
             while(true)
