@@ -11,6 +11,7 @@
 int main(int argc, char **argv)
 {
     int child = fork();
+    int pid;
     if (child == 0)
     {
         printf("I am child, my pid is %d\n", getpid());

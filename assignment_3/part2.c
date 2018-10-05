@@ -11,6 +11,7 @@
 int main(int argc, char **argv)
 {
     char* argc[] = {"ls", "-la", NULL};
+    int pid;
     int child = fork();
     if (child == 0)
     {
