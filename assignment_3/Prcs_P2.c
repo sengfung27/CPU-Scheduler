@@ -11,7 +11,7 @@
 int main(int argc, char *argv[])
 {
     int fd[3];
-    // check if there are two arguments
+    // check if there are three arguments
     errno = 0;
     // open first file with read only
     fd[0] = open(argv[1], O_RDONLY);
@@ -21,7 +21,7 @@ int main(int argc, char *argv[])
         printf("\n Error in open() source.txt: [%s] \n", strerror(errno));
         return -1;
     }
-    // open second file with write only, create one if doesn't exist
+    // open second and thrid files with write only
     fd[1] = open(argv[2], O_WRONLY);
     fd[2] = open(argv[3], O_WRONLY);
     if (0 > fd[1] && 0 > fd[2])
@@ -40,7 +40,7 @@ int main(int argc, char *argv[])
     int count_100, count_50;
     while ((count_100 = read(fd[0], buffer1, sizeof(buffer1))) > 0)
     {
-        // Replace '1' with 'A' 
+        // Replace '1' with 'A'
         for (int i = 0; i < count_100; i++)
         {
             if (buffer1[i] == '1')
@@ -50,12 +50,12 @@ int main(int argc, char *argv[])
         }
         // write in destination1.txt
         write(fd[1], buffer1, count_100);
-        
+
         if (count_100 == 100)
         {
             if ((count_50 = read(fd[0], buffer2, sizeof(buffer2))) > 0)
             {
-                // Replace '2' with 'B' 
+                // Replace '2' with 'B'
                 for (int i = 0; i < count_50; i++)
                 {
                     if (buffer2[i] == '2')

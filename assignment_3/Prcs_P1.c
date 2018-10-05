@@ -10,6 +10,7 @@
 
 int main(int argc, char **argv)
 {
+    // Create two files: destination1.txt ad destination2.txt
     int fd1 = open("destination1.txt", O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR | S_IXUSR);
     if (-1 == fd1)
     {
