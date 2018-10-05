@@ -2,3 +2,4 @@ out/
 *.class
 init
 *.jar
+.vscode/
