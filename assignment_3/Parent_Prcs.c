@@ -10,8 +10,8 @@
 
 int main(int argc, char *argv[])
 {
-    char *[] argc_1 = {"./prcs_p1", NULL};
-    char *[] argc_2 = {"./prcs_p2", "destination1.txt", "destination2.txt", NULL};
+    char * argc_1[] = {"./prcs_p1", NULL};
+    char * argc_2[] = {"./prcs_p2", "destination1.txt", "destination2.txt", NULL};
     errno = 0;
     int status, pid;
     int child_1 = fork();
