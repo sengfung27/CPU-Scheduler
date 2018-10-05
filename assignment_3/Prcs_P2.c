@@ -23,7 +23,7 @@ int main(int argc, char *argv[])
     }
     // open second file with write only, create one if doesn't exist
     fd[1] = open(argv[2], O_WRONLY | O_CREAT, S_IRUSR | S_IWUSR);
-    fd[2] = open(argv[2], O_WRONLY | O_CREAT, S_IRUSR | S_IWUSR);
+    fd[2] = open(argv[3], O_WRONLY | O_CREAT, S_IRUSR | S_IWUSR);
     if (0 > fd[1] && 0 > fd[2])
     {
         if (close(fd[0]) != 0 && close(fd[1]) != 0)
@@ -56,7 +56,7 @@ int main(int argc, char *argv[])
             if ((count_50 = read(fd[0], buffer2, sizeof(buffer2))) > 0)
             {
                 // Replace '2' with 'B' 
-                for (int i = 0; i < count_50; i++)
+                for (int i = 0; j < count_50; i++)
                 {
                     if (buffer2[i] == '2')
                     {
