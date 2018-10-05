@@ -11,22 +11,24 @@
 int main(int argc, char *argv[])
 {
     char * argc_1[] = {"./prcs_p1", NULL};
-    char * argc_2[] = {"./prcs_p2", "destination1.txt", "destination2.txt", NULL};
+    char * argc_2[] = {"./prcs_p2", "source.txt", "destination1.txt", "destination2.txt", NULL};
     errno = 0;
     int status, pid;
     int child_1 = fork();
     if (child_1 == 0)
     {
+        printf("I am Child 1.\n");
         execv(argc_1[0], argc_1);
         printf("\n[%s]", strerror(errno));
     }
     else
     {
-        // sleep 2 sec
-        sleep(2);
+        // sleep 1 sec
+        sleep(1);
         int child_2 = fork();
         if (child_2 == 0)
         {
+            printf("I am Child 2.\n");
             execv(argc_2[0], argc_2);
             printf("\n[%s]", strerror(errno));
         }
@@ -36,7 +38,7 @@ int main(int argc, char *argv[])
             {
                 printf("My child with pid: %d has terminated.\n", pid);
             }
-            printf("I am parent, now I terminate.");
+            printf("I am parent with pid: %d, now I terminate.\n", getpid());
         }
     }
 }

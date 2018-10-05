@@ -28,7 +28,7 @@ int main(int argc, char *argv[])
     {
         if (close(fd[0]) != 0 && close(fd[1]) != 0)
         {
-            printf("\n Error in close() [%s]", strerror(errno));
+            printf("\n make sure compile into \"prcs_p1\" and \"prcs_p2\" are there. [%s]\n", strerror(errno));
             return -1;
         }
         printf("\n Error in open() destination.txt: [%s]", strerror(errno));
@@ -80,6 +80,7 @@ int main(int argc, char *argv[])
         }
         ++length;
     }
+    printf("Successful write in destination1.txt and destination2.txt\n");
 
     return 0;
 }

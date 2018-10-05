@@ -34,7 +34,7 @@ int main(int argc, char **argv)
         return -1;
     }
     
-    printf("\nSuccessful created destination1.txt and destination2.txt\n");
+    printf("Successful created destination1.txt and destination2.txt\n");
 
     return 0;
 }
