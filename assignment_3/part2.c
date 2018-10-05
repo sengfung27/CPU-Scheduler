@@ -19,7 +19,7 @@ int main(int argc, char **argv)
         printf("I am the parent, my pid is: %d\n", getpid());
         while ((pid = waitpid(-1, &status, 0)) != -1)
         {
-            printf("My child with pid: %d has terminated.\n", pid);
+            printf("I am the parent, my child with pid: %d has terminated.\n", pid);
         }
     }
 }
