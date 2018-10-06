@@ -1,4 +1,4 @@
-#! /usr/bin/bash
+#! /bin/bash
 
 javac PCB.java PriorityComparator.java Scheduler.java CpuEmulator.java &&
 jar -cmf Scheduler.mf Scheduler.jar PCB.class PriorityComparator.class Scheduler.class &&
