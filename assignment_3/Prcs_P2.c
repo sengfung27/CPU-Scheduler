@@ -36,9 +36,9 @@ int main(int argc, char *argv[])
     }
 
     // Copy content
-    char buffer1[100], buffer2[50];
+    char buffer1[101], buffer2[51];   //100 50
     int count_100, count_50;
-    while ((count_100 = read(fd[0], buffer1, sizeof(buffer1))) > 0)
+    while ((count_100 = read(fd[0], buffer1, sizeof(buffer1))) > 0)   // +1
     {
         // Replace '1' with 'A'
         for (int i = 0; i < count_100; i++)
@@ -51,9 +51,9 @@ int main(int argc, char *argv[])
         // write in destination1.txt
         write(fd[1], buffer1, count_100);
 
-        if (count_100 == 100)
+        if (count_100 == 101)    //100
         {
-            if ((count_50 = read(fd[0], buffer2, sizeof(buffer2))) > 0)
+            if ((count_50 = read(fd[0], buffer2, sizeof(buffer2))) > 0)   // +1
             {
                 // Replace '2' with 'B'
                 for (int i = 0; i < count_50; i++)
