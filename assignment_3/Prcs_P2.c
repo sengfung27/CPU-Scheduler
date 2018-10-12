@@ -51,7 +51,7 @@ int main(int argc, char *argv[])
         // write in destination1.txt
         write(fd[1], buffer1, count_100);
 
-        if (count_100 == 101)    //100
+        if (count_100 == 101)    //100 words
         {
             if ((count_50 = read(fd[0], buffer2, sizeof(buffer2))) > 0)  
             {
