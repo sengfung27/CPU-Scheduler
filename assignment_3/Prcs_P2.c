@@ -36,7 +36,7 @@ int main(int argc, char *argv[])
     }
 
     // Copy content
-    char buffer1[101], buffer2[51];   
+    char buffer1[100], buffer2[50];   
     int count_100, count_50;
     while ((count_100 = read(fd[0], buffer1, sizeof(buffer1))) > 0)  
     {
@@ -51,7 +51,7 @@ int main(int argc, char *argv[])
         // write in destination1.txt
         write(fd[1], buffer1, count_100);
 
-        if (count_100 == 101)    //100 words
+        if (count_100 == 100)    //100 words
         {
             if ((count_50 = read(fd[0], buffer2, sizeof(buffer2))) > 0)  
             {
