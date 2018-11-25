@@ -32,19 +32,19 @@ class CPUScheduling {
 
     }
 
-    // First Come First Serve Scheduling
+    // handle CPU Emulation all in one side based on different scheduling algorithm
     public static void scheduling(Queue<PCB> schedulerTask, PriorityQueue<PCB> scheduler) {
         int context_switches = 0; // number times of context switch
         int flag = 1; // indicate cpu status. 0 = running, 1 = ready. One process at a time
 
         int currentTime = 0; // clock, counter
-        ArrayList<PCB> finishedPcbList = new ArrayList<PCB>(); // list of finished PCB for calculation
+        ArrayList<PCB> finishedPcbList = new ArrayList<PCB>(); // list of finished PCB to collect performance statistics   
 
         PCB currentPcb = schedulerTask.remove(); // the first PCB in Scheduler queue
 
         PCB cpuPcb = null; // Running cpu PCB
 
-        // keep cycle if both schedulerTask and scheduler has at least one process and cpu is running
+        // keep cycle if both schedulerTask and scheduler has at least one process or cpu is running
         while (schedulerTask.peek() != null || scheduler.peek() != null || flag == 0) {
             // PCB added into scheduler when it's time
             if (currentTime == currentPcb.arrival_time) {
