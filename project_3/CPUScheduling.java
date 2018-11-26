@@ -9,6 +9,49 @@ import java.util.Comparator;
 import java.util.PriorityQueue;
 
 public class CPUScheduling {
+    public static void main(String[] args) {
+        Queue<PCB> schedulerTask = readFile(); // read process from file
+        Queue<PCB> scheduler = null;
+        int scheduling_case = Integer.parseInt(args[0]);
+        // first come first serve algorithm - no pre-emption
+        if (scheduling_case == 1) {
+            scheduler = new LinkedList<>();
+            System.out.println("First Come First Serve Scheduling - no pre-emption");
+            schedulingNoPreEmption(schedulerTask, scheduler);
+        }
+        // shortest job next algorithm - no pre-emption
+        else if (scheduling_case == 2) {
+            scheduler = new PriorityQueue<PCB>(20, new ShortestJobComparator());
+            System.out.println("Shortest Job Next Scheduling - no pre-emption");
+            schedulingNoPreEmption(schedulerTask, scheduler);
+        }
+        // priority algorithm - no pre-emption
+        else if (scheduling_case == 3) {
+            scheduler = new PriorityQueue<PCB>(20, new PriorityComparator());
+            System.out.println("Priority Scheduling - no pre-emption");
+            schedulingNoPreEmption(schedulerTask, scheduler);
+        }
+        // round robin - first come first serve algorithm
+        else if (scheduling_case == 4) {
+            scheduler = new LinkedList<>();
+            System.out.println("Round Robin First Come First Serve Scheduling");
+            schedulingPreEmption(schedulerTask, scheduler, 10);
+            schedulingPreEmption(schedulerTask, scheduler, 100);
+            schedulingPreEmption(schedulerTask, scheduler, 1000);
+        }
+        // round robin - shortest job next algorithm
+        else if (scheduling_case == 5) {
+            scheduler = new PriorityQueue<PCB>(20, new ShortestJobComparator());
+            System.out.println("Round Robin Shortest Job Next Scheduling");
+            schedulingPreEmption(schedulerTask, scheduler, 50);
+        }
+        // round robin - priority algorithm
+        else {
+            scheduler = new PriorityQueue<PCB>(20, new PriorityComparator());
+            System.out.println("Round Robin Priority Scheduling");
+            schedulingPreEmption(schedulerTask, scheduler, 50);
+        }
+    }
 
     // Read file and add into a scheduler
     public static Queue<PCB> readFile() {
@@ -285,51 +328,5 @@ public class CPUScheduling {
             }
             currentTime += 1;
         }
-    }
-
-    public static void main(String[] args) {
-        Queue<PCB> schedulerTask = readFile(); // read process from file
-        Queue<PCB> scheduler = null;
-        int scheduling_case = Integer.parseInt(args[0]);
-        // first come first serve algorithm - no pre-emption
-        if (scheduling_case == 1) {
-            scheduler = new LinkedList<>();
-            System.out.println("First Come First Serve Scheduling - no pre-emption");
-            schedulingNoPreEmption(schedulerTask, scheduler);
-        }
-        // shortest job next algorithm - no pre-emption
-        else if (scheduling_case == 2) {
-            scheduler = new PriorityQueue<PCB>(20, new ShortestJobComparator());
-            System.out.println("Shortest Job Next Scheduling - no pre-emption");
-            schedulingNoPreEmption(schedulerTask, scheduler);
-        }
-        // priority algorithm - no pre-emption
-        else if (scheduling_case == 3) {
-            scheduler = new PriorityQueue<PCB>(20, new PriorityComparator());
-            System.out.println("Priority Scheduling - no pre-emption");
-            schedulingNoPreEmption(schedulerTask, scheduler);
-
-        }
-        // round robin - first come first serve algorithm
-        else if (scheduling_case == 4) {
-            scheduler = new LinkedList<>();
-            System.out.println("Round Robin First Come First Serve Scheduling");
-            schedulingPreEmption(schedulerTask, scheduler, 10);
-            // schedulingPreEmption(schedulerTask, scheduler, 100);
-            // schedulingPreEmption(schedulerTask, scheduler, 1000);
-        }
-        // round robin - shortest job next algorithm
-        else if (scheduling_case == 5) {
-            scheduler = new PriorityQueue<PCB>(20, new ShortestJobComparator());
-            System.out.println("Round Robin Shortest Job Next Scheduling");
-            schedulingPreEmption(schedulerTask, scheduler, 50);
-        }
-        // round robin - priority algorithm
-        else {
-            scheduler = new PriorityQueue<PCB>(20, new PriorityComparator());
-            System.out.println("Round Robin Priority Scheduling");
-            schedulingPreEmption(schedulerTask, scheduler, 50);
-        }
-
     }
 }
