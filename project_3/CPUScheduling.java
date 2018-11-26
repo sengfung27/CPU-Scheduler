@@ -58,7 +58,6 @@ public class CPUScheduling {
                     System.out.println(
                             "Cpu Emulator: Cpu is ready to process " + cpuPcb.program_name + " at time " + currentTime);
                     flag = 0;
-                    cpuPcb.is_first_time = false;
                 }
 
             }
@@ -98,7 +97,6 @@ public class CPUScheduling {
                         cpuPcb = scheduler.remove(); // load the next PCB to cpu
                         System.out.println("Cpu Emulator: Cpu is ready to process " + cpuPcb.program_name + " at time "
                                 + currentTime + ". Waited time: " + cpuPcb.total_waiting_time);
-                        cpuPcb.is_first_time = false; // no longer the first time to load in cpu
                         cpuPcb.est_remain_time -= 1; // decrement estimate remaining time
                         // decrement other property in scheduler
 

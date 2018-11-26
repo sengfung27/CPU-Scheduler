@@ -11,7 +11,6 @@ public class PCB
     public int total_waiting_time; 
     public int turnaround_time; 
     public int time_quantum;
-    public boolean is_first_time;
     public PCB(String line)
     {
         String[] split = line.split(",");
@@ -25,8 +24,6 @@ public class PCB
         est_remain_time = Integer.parseInt(split[7]);
         total_waiting_time = 0;
         turnaround_time = 0;
-        is_first_time = true;
-
     }
 
 }
