@@ -75,7 +75,7 @@ public class CPUScheduling {
                         for (PCB waiting_block : scheduler) {
                             waiting_block.total_waiting_time += 1; // 1 unit wait time for process in scheduler
                             waiting_block.turnaround_time += 1; // 1 unit turnaround_time for process in scheduler
-                            
+
                         }
                     }
                 }
@@ -91,19 +91,17 @@ public class CPUScheduling {
                     if (scheduler.peek() != null) {
                         context_switches += 1; // context switch to next process
                         currentTime += 2; // add 2 units context switch
+                        for (PCB waiting_block : scheduler) {
+                            waiting_block.total_waiting_time += 2; // 2 unit wait time for process in scheduler
+                            waiting_block.turnaround_time += 2; // 2 unit turnaround_time for process in scheduler
+                        }
                         cpuPcb = scheduler.remove(); // load the next PCB to cpu
                         System.out.println("Cpu Emulator: Cpu is ready to process " + cpuPcb.program_name + " at time "
                                 + currentTime + ". Waited time: " + cpuPcb.total_waiting_time);
                         cpuPcb.is_first_time = false; // no longer the first time to load in cpu
                         cpuPcb.est_remain_time -= 1; // decrement estimate remaining time
                         // decrement other property in scheduler
-                        if (scheduler.peek() != null) {
-                            for (PCB waiting_block : scheduler) {
-                                waiting_block.total_waiting_time += 2; // 2 unit wait time for process in scheduler
-                                waiting_block.turnaround_time += 2; // 2 unit turnaround_time for process in scheduler
-                                
-                            }
-                        }
+
                     }
 
                     // finished all the process in cpu emulator and scheduler and print it out
@@ -143,11 +141,11 @@ public class CPUScheduling {
         if (scheduling_case == 1) {
             scheduler = new PriorityQueue<PCB>(20, new FirstComeFirstServeComparator());
             System.out.println("First Come First Serve Scheduling - no pre-emption");
-        // shortest job next algorithm - no pre-emption
+            // shortest job next algorithm - no pre-emption
         } else if (scheduling_case == 2) {
             scheduler = new PriorityQueue<PCB>(20, new ShortestJobComparator());
             System.out.println("Shortest Job Next Scheduling - no pre-emption");
-        // priority algorithm - no pre-emption
+            // priority algorithm - no pre-emption
         } else if (scheduling_case == 3) {
             scheduler = new PriorityQueue<PCB>(20, new PriorityComparator());
             System.out.println("Priority Scheduling - no pre-emption");
