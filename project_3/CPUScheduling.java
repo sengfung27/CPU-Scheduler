@@ -219,35 +219,62 @@ public class CPUScheduling {
                     }
                     // time quantum = 0, context switch to next ready process
                     else {
+                        PCB contextPcb = null;
                         System.out.println("Cpu Emulator: Out of time quantum, switching out " + cpuPcb.program_name
                                 + " at time " + currentTime + ". Estimate Remaining Time: " + cpuPcb.est_remain_time);
                         context_switches += 1; // context switch to next process
                         currentTime += 1; // add 1 units context switch
                         if (currentTime == currentPcb.arrival_time) {
-                            scheduler.add(currentPcb);
-                            System.out.println("Scheduler: " + currentPcb.program_name + " is entered the scheduling Queue at time "
+                            contextPcb = currentPcb;
+                            contextPcb.total_waiting_time += 1;
+                            contextPcb.turnaround_time += 1;
+                            // scheduler.add(currentPcb);
+                            System.out.println("Scheduler: " + contextPcb.program_name + " is entered the scheduling Queue at time "
                                     + currentTime);
                             if (schedulerTask.peek() != null) {
                                 currentPcb = schedulerTask.remove();
                             }
                         }
+                        if (scheduler.peek() != null) {
+
+                            for (PCB waiting_block : scheduler) {
+                                waiting_block.total_waiting_time += 1; // 2 unit wait time for process in scheduler
+                                waiting_block.turnaround_time += 1; // 2 unit turnaround_time for process in scheduler
+                            }
+                        }
+                        if (contextPcb != null)
+                        {
+                            scheduler.add(contextPcb);
+                            contextPcb = null;
+                        }
                         currentTime += 1; // add 1 units context switch
                         if (currentTime == currentPcb.arrival_time) {
-                            scheduler.add(currentPcb);
-                            System.out.println("Scheduler: " + currentPcb.program_name + " is entered the scheduling Queue at time "
+                            contextPcb = currentPcb;
+                            contextPcb.total_waiting_time += 1;
+                            contextPcb.turnaround_time += 1;
+                            // scheduler.add(currentPcb);
+                            System.out.println("Scheduler: " + contextPcb.program_name + " is entered the scheduling Queue at time "
                                     + currentTime);
                             if (schedulerTask.peek() != null) {
                                 currentPcb = schedulerTask.remove();
                             }
+                        }
+                        if (scheduler.peek() != null) {
+
+                            for (PCB waiting_block : scheduler) {
+                                waiting_block.total_waiting_time += 1; // 2 unit wait time for process in scheduler
+                                waiting_block.turnaround_time += 1; // 2 unit turnaround_time for process in scheduler
+                            }
+                        }
+                        if (contextPcb != null)
+                        {
+                            scheduler.add(contextPcb);
+                            contextPcb = null;
                         }
                         cpuPcb.total_waiting_time += 2; // add total wait time
                         cpuPcb.turnaround_time += 2; // add turn around time
                         if (scheduler.peek() != null) {
-
-                            for (PCB waiting_block : scheduler) {
-                                waiting_block.total_waiting_time += 2; // 2 unit wait time for process in scheduler
-                                waiting_block.turnaround_time += 2; // 2 unit turnaround_time for process in scheduler
-                            }
+                            
                             PCB temp = cpuPcb;
                             cpuPcb = scheduler.remove(); // load the next PCB to cpu
                             scheduler.add(temp);
