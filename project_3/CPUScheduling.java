@@ -72,7 +72,7 @@ public class CPUScheduling {
 
     }
 
-    // handle CPU Emulation all in one side based on different scheduling algorithm
+    // No Pre Emption Algorithm will comes here
     public static void schedulingNoPreEmption(Queue<PCB> schedulerTask, Queue<PCB> scheduler) {
         int context_switches = 0; // number times of context switch
         int flag = 1; // indicate cpu status. 0 = running, 1 = ready. One process at a time
@@ -174,6 +174,7 @@ public class CPUScheduling {
         }
     }
 
+    // Pre Emption Algorithm will comes here
     public static void schedulingPreEmption(Queue<PCB> schedulerTask, Queue<PCB> scheduler, int timeQuantum) {
         int context_switches = 0; // number times of context switch
         int flag = 1; // indicate cpu status. 0 = running, 1 = ready. One process at a time
@@ -202,8 +203,11 @@ public class CPUScheduling {
                 }
 
             }
+            // cpu is in running mode
             if (flag == 0) {
+                // the cpu PCB is not zero
                 if (cpuPcb.est_remain_time != 0) {
+                    // check if the time quantum is zero
                     if (fixedTime != 0) {
                         cpuPcb.est_remain_time -= 1;
                         cpuPcb.turnaround_time += 1;
@@ -224,6 +228,7 @@ public class CPUScheduling {
                                 + " at time " + currentTime + ". Estimate Remaining Time: " + cpuPcb.est_remain_time);
                         context_switches += 1; // context switch to next process
                         currentTime += 1; // add 1 units context switch
+                        // check if any new process comes
                         if (currentTime == currentPcb.arrival_time) {
                             contextPcb = currentPcb;
                             contextPcb.total_waiting_time += 1;
@@ -235,19 +240,22 @@ public class CPUScheduling {
                                 currentPcb = schedulerTask.remove();
                             }
                         }
+                        // add one unit of wait time an turnaround time in ready scheduler
                         if (scheduler.peek() != null) {
 
                             for (PCB waiting_block : scheduler) {
-                                waiting_block.total_waiting_time += 1; // 2 unit wait time for process in scheduler
-                                waiting_block.turnaround_time += 1; // 2 unit turnaround_time for process in scheduler
+                                waiting_block.total_waiting_time += 1; // 1 unit wait time for process in scheduler
+                                waiting_block.turnaround_time += 1; // 1 unit turnaround_time for process in scheduler
                             }
                         }
+                        // one process arrives during context switch 
                         if (contextPcb != null)
                         {
                             scheduler.add(contextPcb);
                             contextPcb = null;
                         }
                         currentTime += 1; // add 1 units context switch
+                        // check if any new process comes
                         if (currentTime == currentPcb.arrival_time) {
                             contextPcb = currentPcb;
                             contextPcb.total_waiting_time += 1;
@@ -259,20 +267,23 @@ public class CPUScheduling {
                                 currentPcb = schedulerTask.remove();
                             }
                         }
+                        // add one unit of wait time an turnaround time in ready scheduler
                         if (scheduler.peek() != null) {
 
                             for (PCB waiting_block : scheduler) {
-                                waiting_block.total_waiting_time += 1; // 2 unit wait time for process in scheduler
-                                waiting_block.turnaround_time += 1; // 2 unit turnaround_time for process in scheduler
+                                waiting_block.total_waiting_time += 1; // 1 unit wait time for process in scheduler
+                                waiting_block.turnaround_time += 1; // 1 unit turnaround_time for process in scheduler
                             }
                         }
+                        // one process arrives during context switch 
                         if (contextPcb != null)
                         {
                             scheduler.add(contextPcb);
                             contextPcb = null;
                         }
-                        cpuPcb.total_waiting_time += 2; // add total wait time
-                        cpuPcb.turnaround_time += 2; // add turn around time
+
+                        cpuPcb.total_waiting_time += 2; // add total wait time for cpu pcb
+                        cpuPcb.turnaround_time += 2; // add turn around time for cpu pcb
                         if (scheduler.peek() != null) {
                             
                             PCB temp = cpuPcb;
@@ -306,7 +317,7 @@ public class CPUScheduling {
                                 currentPcb = schedulerTask.remove();
                             }
                         }
-                        currentTime += 1; // add 2 units context switch
+                        currentTime += 1; // add 1 units context switch
                         if (currentTime == currentPcb.arrival_time) {
                             scheduler.add(currentPcb);
                             System.out.println("Scheduler: " + currentPcb.program_name + " is entered the scheduling Queue at time "
