@@ -31,21 +31,31 @@ public class CPUScheduling {
             System.out.println("Priority Scheduling - no pre-emption");
             schedulingNoPreEmption(schedulerTask, scheduler);
         }
-        // round robin - first come first serve algorithm
+        // round robin - first come first serve algorithm time quantum 10 unit
         else if (scheduling_case == 4) {
             scheduler = new LinkedList<>();
-            System.out.println("Round Robin First Come First Serve Scheduling");
+            System.out.println("Round Robin First Come First Serve Scheduling with time quantum: 10 units");
             schedulingPreEmption(schedulerTask, scheduler, 10);
+        }
+        // round robin - first come first serve algorithm time quantum 100 unit
+        else if (scheduling_case == 5) {
+            scheduler = new LinkedList<>();
+            System.out.println("Round Robin First Come First Serve Scheduling with time quantum: 10 units");
             schedulingPreEmption(schedulerTask, scheduler, 100);
+        }
+        // round robin - first come first serve algorithm time quantum 1000 unit
+        else if (scheduling_case == 6) {
+            scheduler = new LinkedList<>();
+            System.out.println("Round Robin First Come First Serve Scheduling with time quantum: 10 units");
             schedulingPreEmption(schedulerTask, scheduler, 1000);
         }
-        // round robin - shortest job next algorithm
-        else if (scheduling_case == 5) {
+        // round robin - shortest job next algorithm time quantum 50 units
+        else if (scheduling_case == 7) {
             scheduler = new PriorityQueue<PCB>(20, new ShortestJobComparator());
             System.out.println("Round Robin Shortest Job Next Scheduling");
             schedulingPreEmption(schedulerTask, scheduler, 50);
         }
-        // round robin - priority algorithm
+        // round robin - priority algorithm time quantum 50 units
         else {
             scheduler = new PriorityQueue<PCB>(20, new PriorityComparator());
             System.out.println("Round Robin Priority Scheduling");
@@ -234,8 +244,8 @@ public class CPUScheduling {
                             contextPcb.total_waiting_time += 1;
                             contextPcb.turnaround_time += 1;
                             // scheduler.add(currentPcb);
-                            System.out.println("Scheduler: " + contextPcb.program_name + " is entered the scheduling Queue at time "
-                                    + currentTime);
+                            System.out.println("Scheduler: " + contextPcb.program_name
+                                    + " is entered the scheduling Queue at time " + currentTime);
                             if (schedulerTask.peek() != null) {
                                 currentPcb = schedulerTask.remove();
                             }
@@ -248,9 +258,8 @@ public class CPUScheduling {
                                 waiting_block.turnaround_time += 1; // 1 unit turnaround_time for process in scheduler
                             }
                         }
-                        // one process arrives during context switch 
-                        if (contextPcb != null)
-                        {
+                        // one process arrives during context switch
+                        if (contextPcb != null) {
                             scheduler.add(contextPcb);
                             contextPcb = null;
                         }
@@ -261,8 +270,8 @@ public class CPUScheduling {
                             contextPcb.total_waiting_time += 1;
                             contextPcb.turnaround_time += 1;
                             // scheduler.add(currentPcb);
-                            System.out.println("Scheduler: " + contextPcb.program_name + " is entered the scheduling Queue at time "
-                                    + currentTime);
+                            System.out.println("Scheduler: " + contextPcb.program_name
+                                    + " is entered the scheduling Queue at time " + currentTime);
                             if (schedulerTask.peek() != null) {
                                 currentPcb = schedulerTask.remove();
                             }
@@ -275,9 +284,8 @@ public class CPUScheduling {
                                 waiting_block.turnaround_time += 1; // 1 unit turnaround_time for process in scheduler
                             }
                         }
-                        // one process arrives during context switch 
-                        if (contextPcb != null)
-                        {
+                        // one process arrives during context switch
+                        if (contextPcb != null) {
                             scheduler.add(contextPcb);
                             contextPcb = null;
                         }
@@ -285,7 +293,7 @@ public class CPUScheduling {
                         cpuPcb.total_waiting_time += 2; // add total wait time for cpu pcb
                         cpuPcb.turnaround_time += 2; // add turn around time for cpu pcb
                         if (scheduler.peek() != null) {
-                            
+
                             PCB temp = cpuPcb;
                             cpuPcb = scheduler.remove(); // load the next PCB to cpu
                             scheduler.add(temp);
@@ -306,13 +314,13 @@ public class CPUScheduling {
                     System.out.println("Cpu Emulator: " + cpuPcb.program_name + " is finished at time " + currentTime
                             + ". Waited time: " + cpuPcb.total_waiting_time);
                     // Scheduler has at least one process
-                    if (scheduler.peek() != null ) {
+                    if (scheduler.peek() != null) {
                         context_switches += 1; // context switch to next process
                         currentTime += 1;
                         if (currentTime == currentPcb.arrival_time) {
                             scheduler.add(currentPcb);
-                            System.out.println("Scheduler: " + currentPcb.program_name + " is entered the scheduling Queue at time "
-                                    + currentTime);
+                            System.out.println("Scheduler: " + currentPcb.program_name
+                                    + " is entered the scheduling Queue at time " + currentTime);
                             if (schedulerTask.peek() != null) {
                                 currentPcb = schedulerTask.remove();
                             }
@@ -320,8 +328,8 @@ public class CPUScheduling {
                         currentTime += 1; // add 1 units context switch
                         if (currentTime == currentPcb.arrival_time) {
                             scheduler.add(currentPcb);
-                            System.out.println("Scheduler: " + currentPcb.program_name + " is entered the scheduling Queue at time "
-                                    + currentTime);
+                            System.out.println("Scheduler: " + currentPcb.program_name
+                                    + " is entered the scheduling Queue at time " + currentTime);
                             if (schedulerTask.peek() != null) {
                                 currentPcb = schedulerTask.remove();
                             }
@@ -341,7 +349,7 @@ public class CPUScheduling {
 
                     // finished all the process in cpu emulator and scheduler and print it out
                     else {
-                        
+
                         flag = 1;
                         int sum_wait_time = 0;
                         int sum_turnaround_time = 0;
