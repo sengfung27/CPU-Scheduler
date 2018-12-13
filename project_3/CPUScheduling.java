@@ -183,7 +183,7 @@ public class CPUScheduling {
                         try (FileWriter fw = new FileWriter("myfile.txt", true);
                                 BufferedWriter bw = new BufferedWriter(fw);
                                 PrintWriter out = new PrintWriter(bw)) {
-                            out.print((sum_turnaround_time / 14) + ",");
+                            out.print((sum_turnaround_time / 14.0) + ",");
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
@@ -382,7 +382,7 @@ public class CPUScheduling {
                         try (FileWriter fw = new FileWriter("myfile.txt", true);
                                 BufferedWriter bw = new BufferedWriter(fw);
                                 PrintWriter out = new PrintWriter(bw)) {
-                            out.print((sum_turnaround_time / 14) + ",");
+                            out.print((sum_turnaround_time / 14.0) + ",");
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
