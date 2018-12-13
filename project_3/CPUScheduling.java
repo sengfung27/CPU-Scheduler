@@ -7,9 +7,12 @@ import java.util.LinkedList;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.PriorityQueue;
+import java.io.FileWriter;
+import java.io.BufferedWriter;
+import java.io.PrintWriter;
 
 public class CPUScheduling {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         Queue<PCB> schedulerTask = readFile(); // read process from file
         Queue<PCB> scheduler = null;
         int scheduling_case = Integer.parseInt(args[0]);
@@ -177,6 +180,13 @@ public class CPUScheduling {
                         System.out.println("Average turnaround time: " + sum_turnaround_time / 14.0);
                         System.out.println(
                                 "---------------------------------------------------------------------------------------------");
+                        try (FileWriter fw = new FileWriter("myfile.txt", true);
+                                BufferedWriter bw = new BufferedWriter(fw);
+                                PrintWriter out = new PrintWriter(bw)) {
+                            out.print((sum_turnaround_time / 14) + ",");
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
                     }
                 }
             }
@@ -369,6 +379,13 @@ public class CPUScheduling {
                         System.out.println("Average turnaround time: " + sum_turnaround_time / 14.0);
                         System.out.println(
                                 "---------------------------------------------------------------------------------------------");
+                        try (FileWriter fw = new FileWriter("myfile.txt", true);
+                                BufferedWriter bw = new BufferedWriter(fw);
+                                PrintWriter out = new PrintWriter(bw)) {
+                            out.print((sum_turnaround_time / 14) + ",");
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
                     }
                 }
             }

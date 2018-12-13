@@ -2,7 +2,7 @@
 
 # these two lines must be here to compile java code
 javac PCB.java PriorityComparator.java ShortestJobComparator.java CPUScheduling.java &&
-jar -cmf CPUScheduling.mf CPUScheduling.jar PCB.class PriorityComparator.class ShortestJobComparator.class CPUScheduling.class &&
+jar -cmf CPUScheduling.mf CPUScheduling.jar PCB.class PriorityComparator.class ShortestJobComparator.class CPUScheduling.class 
 
 # first come first serve algorithm - no pre-emption
 java -cp CPUScheduling.jar CPUScheduling 1
@@ -27,3 +27,10 @@ java -cp CPUScheduling.jar CPUScheduling 7
 
 # round robin priority algorithm with time quantum 50
 java -cp CPUScheduling.jar CPUScheduling 8
+
+
+# sudo apt-get install python-pip 
+# pip install numpy 
+# pip install matplotlib 
+# sudo apt-get install python-tk 
+python ./graph.py
